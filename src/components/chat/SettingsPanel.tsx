@@ -1,0 +1,452 @@
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Separator } from "@/components/ui/separator";
+import { X, FileText, FileCode, Database, Download, Check, Loader2, Gauge } from "lucide-react";
+import { TTSToggle } from "@/components/TTSToggle";
+import { webllmService, type WebLLMModel } from "@/services/webllm-service";
+import { nativeCpuInferenceService } from "@/services/native-cpu-inference-service";
+import { modelVariantService } from "@/services/model-variant-service";
+import { vectorMemoryService, type VectorMemoryMode } from "@/services/vector-memory-service";
+import type { ChatMode, FocusMode } from "@/types/schema";
+
+interface SettingsPanelProps {
+  isOpen: boolean;
+  onClose: () => void;
+  mode: ChatMode;
+  focus: FocusMode;
+  onModeChange: (mode: ChatMode) => void;
+  onFocusChange: (focus: FocusMode) => void;
+  onExportChat: (format: 'txt' | 'md' | 'json') => void;
+  ttsEnabled: boolean;
+  onTTSToggle: (enabled: boolean) => void;
+  stats?: {
+    messagesSent: number;
+    grammarImprovements: number;
+    speakingTime: string;
+  };
+  // WebLLM props
+  webllmEnabled?: boolean;
+  onWebLLMToggle?: (enabled: boolean) => void;
+  selectedModel?: string;
+  onModelSelect?: (modelId: string) => void;
+}
+
+interface SettingsPanelProps {
+  isOpen: boolean;
+  onClose: () => void;
+  mode: ChatMode;
+  focus: FocusMode;
+  onModeChange: (mode: ChatMode) => void;
+  onFocusChange: (focus: FocusMode) => void;
+  onExportChat: (format: 'txt' | 'md' | 'json') => void;
+  ttsEnabled: boolean;
+  onTTSToggle: (enabled: boolean) => void;
+  stats?: {
+    messagesSent: number;
+    grammarImprovements: number;
+    speakingTime: string;
+  };
+}
+
+export function SettingsPanel({
+  isOpen,
+  onClose,
+  mode,
+  focus,
+  onModeChange,
+  onFocusChange,
+  onExportChat,
+  ttsEnabled,
+  onTTSToggle,
+  stats = {
+    messagesSent: 0,
+    grammarImprovements: 0,
+    speakingTime: "0 min"
+  },
+  webllmEnabled: _webllmEnabled = false,
+  onWebLLMToggle: _onWebLLMToggle,
+  selectedModel,
+  onModelSelect
+}: SettingsPanelProps) {
+  const [selectedLanguage, setSelectedLanguage] = useState("us");
+  const [selectedLevel, setSelectedLevel] = useState("intermediate");
+  const [memoryMode, setMemoryMode] = useState<VectorMemoryMode>(vectorMemoryService.getMode());
+  const [downloadingModel, setDownloadingModel] = useState<string | null>(null);
+  const [downloadProgress, setDownloadProgress] = useState<{ progress: number; text: string } | null>(null);
+
+  const availableModels = webllmService.getAvailableModels();
+  const cachedModels = webllmService.getCachedModels();
+
+  const handleModelDownload = async (model: WebLLMModel) => {
+    if (downloadingModel) return;
+
+    setDownloadingModel(model.id);
+    setDownloadProgress({ progress: 0, text: 'Preparing...' });
+
+    webllmService.setProgressCallback((progress) => {
+      setDownloadProgress(progress);
+    });
+
+    try {
+      const success = await webllmService.loadModel(model.id);
+      if (success && onModelSelect) {
+        onModelSelect(model.id);
+      }
+    } finally {
+      setDownloadingModel(null);
+      setDownloadProgress(null);
+      webllmService.clearProgressCallback();
+    }
+  };
+
+  const handleModelSelect = (modelId: string) => {
+    if (webllmService.isModelCached(modelId)) {
+      onModelSelect?.(modelId);
+    }
+  };
+
+  const handleMemoryModeToggle = () => {
+    const nextMode: VectorMemoryMode = memoryMode === 'performance' ? 'quality' : 'performance';
+    vectorMemoryService.setMode(nextMode);
+    setMemoryMode(nextMode);
+  };
+
+  return (
+    <AnimatePresence>
+      {isOpen && (
+        <div className="fixed inset-0 z-[60] flex">
+          {/* Backdrop */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="absolute inset-0 bg-black/50 backdrop-blur-sm"
+            onClick={onClose}
+          />
+          {/* Panel */}
+          <motion.div
+            initial={{ x: "100%" }}
+            animate={{ x: 0 }}
+            exit={{ x: "100%" }}
+            transition={{ type: "spring", damping: 20 }}
+            className="ml-auto w-80 bg-white dark:bg-gray-900 shadow-2xl border-l border-gray-200 dark:border-gray-700 flex flex-col relative z-10 h-full"
+          >
+            {/* Header */}
+            <div className="flex items-center justify-between p-4 border-b">
+              <h2 className="text-lg font-semibold">Settings</h2>
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={onClose}
+                className="h-8 w-8"
+              >
+                <X className="h-4 w-4" />
+              </Button>
+            </div>
+            {/* Content */}
+            <div className="flex-1 overflow-y-auto p-4 space-y-6">
+              {/* Learning Progress */}
+              <Card>
+                <CardHeader>
+                  <CardTitle className="text-base">Learning Progress</CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-3">
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm text-muted-foreground">Messages sent</span>
+                    <span className="text-sm font-medium">{stats.messagesSent}</span>
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm text-muted-foreground">Grammar improvements</span>
+                    <span className="text-sm font-medium text-emerald-600">{stats.grammarImprovements}</span>
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm text-muted-foreground">Speaking time</span>
+                    <span className="text-sm font-medium text-blue-600">{stats.speakingTime}</span>
+                  </div>
+                </CardContent>
+              </Card>
+              {/* Chat Settings */}
+              <Card>
+                <CardHeader>
+                  <CardTitle className="text-base">Chat Settings</CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <div className="space-y-2">
+                    <label className="text-sm font-medium">Mode</label>
+                    <Select value={mode} onValueChange={(value: ChatMode) => onModeChange(value)}>
+                      <SelectTrigger>
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="conversation">Conversation</SelectItem>
+                        <SelectItem value="interview">Interview</SelectItem>
+                        <SelectItem value="roleplay">Roleplay</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  <div className="space-y-2">
+                    <label className="text-sm font-medium">Focus</label>
+                    <Select value={focus} onValueChange={(value: FocusMode) => onFocusChange(value)}>
+                      <SelectTrigger>
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="fluency">Fluency</SelectItem>
+                        <SelectItem value="correction">Correction</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  <Separator />
+                  {/* TTS Toggle */}
+                  <div className="space-y-3">
+                    <label className="text-sm font-medium">Voice Output</label>
+                    <TTSToggle enabled={ttsEnabled} onToggle={onTTSToggle} />
+                  </div>
+
+                  <Separator />
+
+                  <div className="space-y-3">
+                    <label className="text-sm font-medium">Memory Mode</label>
+                    <Button
+                      variant="outline"
+                      onClick={handleMemoryModeToggle}
+                      className={`w-full justify-between ${
+                        memoryMode === 'performance'
+                          ? 'border-emerald-500/40 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300'
+                          : 'border-blue-500/40 bg-blue-500/10 text-blue-700 dark:text-blue-300'
+                      }`}
+                      title={
+                        memoryMode === 'performance'
+                          ? 'Performance mode uses lower RAM and faster retrieval.'
+                          : 'Quality mode uses richer semantic memory and more RAM.'
+                      }
+                    >
+                      <span className="flex items-center gap-2">
+                        <Gauge className="h-4 w-4" />
+                        {memoryMode === 'performance' ? 'Performance' : 'Quality'}
+                      </span>
+                      <span className="text-xs text-muted-foreground">
+                        Tap to switch
+                      </span>
+                    </Button>
+                    <p className="text-xs text-muted-foreground">
+                      Performance is recommended on 8GB RAM. Quality improves semantic recall but uses more memory.
+                    </p>
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* WebLLM Settings */}
+              <Card>
+                <CardHeader>
+                  <CardTitle className="text-base flex items-center gap-2">
+                    🤖 Local AI Models
+                    <span className="text-xs bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 px-2 py-1 rounded-full">
+                      Privacy-First
+                    </span>
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <div className="text-xs text-muted-foreground">
+                    Download AI models to run locally in your browser. No data sent to servers - 100% private.
+                  </div>
+                  
+                  <div className="space-y-3">
+                    <label className="text-sm font-medium">Available Models</label>
+                    
+                    {downloadProgress && (
+                      <div className="p-3 bg-blue-50 dark:bg-blue-900/20 rounded-lg border">
+                        <div className="flex items-center justify-between mb-2">
+                          <span className="text-sm font-medium">{downloadProgress.text}</span>
+                          <span className="text-sm text-muted-foreground">
+                            {Math.round(downloadProgress.progress * 100)}%
+                          </span>
+                        </div>
+                        <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
+                          <div 
+                            className="bg-blue-500 h-2 rounded-full transition-all duration-300"
+                            style={{ width: `${downloadProgress.progress * 100}%` }}
+                          />
+                        </div>
+                      </div>
+                    )}
+                    
+                    <div className="space-y-2 max-h-64 overflow-y-auto">
+                      {availableModels.map((model) => {
+                        const isCached = cachedModels.includes(model.id);
+                        const isDownloading = downloadingModel === model.id;
+                        const isSelected = selectedModel === model.id;
+                        
+                        return (
+                          <div
+                            key={model.id}
+                            className={`p-3 border rounded-lg transition-all ${
+                              isSelected 
+                                ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20' 
+                                : 'border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-600'
+                            }`}
+                          >
+                            <div className="flex items-start justify-between">
+                              <div className="flex-1 min-w-0">
+                                <div className="flex items-center gap-2">
+                                  <h4 className="text-sm font-medium truncate">
+                                    {model.name}
+                                  </h4>
+                                  <span className="text-xs text-muted-foreground">
+                                    {model.parameters}
+                                  </span>
+                                  {isCached && (
+                                    <Check className="h-3 w-3 text-green-500" />
+                                  )}
+                                </div>
+                                <p className="text-xs text-muted-foreground mt-1">
+                                  {model.description}
+                                </p>
+                                <div className="flex items-center gap-2 mt-1">
+                                  <span className="text-xs text-muted-foreground">
+                                    Size: {model.size}
+                                  </span>
+                                  {isCached && (
+                                    <span className="text-xs text-green-600 dark:text-green-400">
+                                      Downloaded
+                                    </span>
+                                  )}
+                                </div>
+                              </div>
+                              
+                              <div className="ml-2 flex gap-1">
+                                {isCached ? (
+                                  <Button
+                                    variant={isSelected ? "default" : "outline"}
+                                    size="sm"
+                                    onClick={() => handleModelSelect(model.id)}
+                                    disabled={isDownloading}
+                                    className="h-8"
+                                  >
+                                    {isSelected ? "Active" : "Select"}
+                                  </Button>
+                                ) : (
+                                  <Button
+                                    variant="outline"
+                                    size="sm"
+                                    onClick={() => handleModelDownload(model)}
+                                    disabled={isDownloading || !!downloadingModel}
+                                    className="h-8"
+                                  >
+                                    {isDownloading ? (
+                                      <Loader2 className="h-3 w-3 animate-spin" />
+                                    ) : (
+                                      <Download className="h-3 w-3" />
+                                    )}
+                                  </Button>
+                                )}
+                              </div>
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                    
+                    {cachedModels.length > 0 && (
+                      <>
+                        <Separator />
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          onClick={async () => {
+                            if (confirm('Clear all downloaded models? This will free up storage space.')) {
+                              await webllmService.clearModelCache();
+                              modelVariantService.clearNativePaths();
+                              await nativeCpuInferenceService.clearDownloads(true, true);
+                              onClose();
+                              setTimeout(() => window.location.reload(), 100);
+                            }
+                          }}
+                          className="w-full text-red-600 hover:text-red-700"
+                        >
+                          Clear All Downloaded Models
+                        </Button>
+                      </>
+                    )}
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* Language Settings */}
+              <Card>
+                <CardHeader>
+                  <CardTitle className="text-base">Language Settings</CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <div className="space-y-2">
+                    <label className="text-sm font-medium">Accent Preference</label>
+                    <Select value={selectedLanguage} onValueChange={setSelectedLanguage}>
+                      <SelectTrigger>
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="us">American English</SelectItem>
+                        <SelectItem value="uk">British English</SelectItem>
+                        <SelectItem value="au">Australian English</SelectItem>
+                        <SelectItem value="ca">Canadian English</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  <div className="space-y-2">
+                    <label className="text-sm font-medium">Difficulty Level</label>
+                    <Select value={selectedLevel} onValueChange={setSelectedLevel}>
+                      <SelectTrigger>
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="beginner">Beginner</SelectItem>
+                        <SelectItem value="intermediate">Intermediate</SelectItem>
+                        <SelectItem value="advanced">Advanced</SelectItem>
+                        <SelectItem value="native">Native-like</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                </CardContent>
+              </Card>
+              {/* Export Options */}
+              <Card>
+                <CardHeader>
+                  <CardTitle className="text-base">Export Chat</CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-2">
+                  <Button
+                    variant="outline"
+                    className="w-full justify-start"
+                    onClick={() => onExportChat('txt')}
+                  >
+                    <FileText className="h-4 w-4 mr-2" />
+                    Export as Text (.txt)
+                  </Button>
+                  <Button
+                    variant="outline"
+                    className="w-full justify-start"
+                    onClick={() => onExportChat('md')}
+                  >
+                    <FileCode className="h-4 w-4 mr-2" />
+                    Export as Markdown (.md)
+                  </Button>
+                  <Button
+                    variant="outline"
+                    className="w-full justify-start"
+                    onClick={() => onExportChat('json')}
+                  >
+                    <Database className="h-4 w-4 mr-2" />
+                    Export as JSON (.json)
+                  </Button>
+                </CardContent>
+              </Card>
+            </div>
+          </motion.div>
+        </div>
+      )}
+    </AnimatePresence>
+  );
+}
