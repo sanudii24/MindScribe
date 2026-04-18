@@ -2,5 +2,21 @@ theme: jekyll-theme-cayman
 title: MindScribe
 description: Advanced AI-Powered Mental Health Assistant with Offline Capabilities
 show_downloads: true
-github:
-  url: https://github.com/sanudii24/MindScribe
+plugins:
+  - jekyll-feed
+exclude:
+  - ARCHITECTURE_IMPLEMENTATION_IEEE.md
+  - INFERENCE_TURBO_MODE.md
+  - NATIVE_CPU_IMPLEMENTATION_PLAN.md
+  - NATIVE_CPU_INTEGRITY_SETUP.md
+  - PHASE6_MEMORY_INTELLIGENCE_COMPLETION.md
+  - PHASE6_MEMORY_INTELLIGENCE_PLAN.md
+  - PROMPTING_ARCHITECTURE.md
+  - PROMPT_QUALITY_GATES.md
+  - PR_NATIVE_CPU.md
+  - RAG_PHASE1_PRODUCTION_NOTES.md
+  - RAG_PHASE2_COMPLETION.md
+  - RAG_PHASE2_EXECUTION_PLAN.md
+  - RAG_PHASE3_QUALITY_GATES.md
+  - RAG_PHASE4_CI_ENFORCEMENT.md
+  - architecture
