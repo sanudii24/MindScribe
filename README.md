@@ -25,59 +25,66 @@ A comprehensive, privacy-first mental health support platform powered by local A
 ## ✨ Complete Feature Set (27 Features)
 
 ### 🔐 **Phase 1: Core Infrastructure**
-| Feature | Description |
-|---------|-------------|
-| **F001** Auth System | Local authentication with encrypted credentials |
-| **F002** Encrypted Storage | AES-GCM encryption using Web Crypto API |
-| **F003** Theme System | Dark/Light mode with system preference sync |
-| **F004** Layout System | Responsive sidebar navigation with AppLayout |
+
+| Feature                    | Description                                     |
+| -------------------------- | ----------------------------------------------- |
+| **F001** Auth System       | Local authentication with encrypted credentials |
+| **F002** Encrypted Storage | AES-GCM encryption using Web Crypto API         |
+| **F003** Theme System      | Dark/Light mode with system preference sync     |
+| **F004** Layout System     | Responsive sidebar navigation with AppLayout    |
 
 ### 🧪 **Phase 2: Mental Health Assessment**
-| Feature | Description |
-|---------|-------------|
-| **F005** DASS-21 Assessment | Depression, Anxiety, Stress screening tool |
-| **F006** Assessment Results | Visual severity display with color coding |
-| **F007** User Onboarding | First-time user flow with guided assessment |
+
+| Feature                     | Description                                 |
+| --------------------------- | ------------------------------------------- |
+| **F005** DASS-21 Assessment | Depression, Anxiety, Stress screening tool  |
+| **F006** Assessment Results | Visual severity display with color coding   |
+| **F007** User Onboarding    | First-time user flow with guided assessment |
 
 ### 💬 **Phase 3: AI Therapy Chat**
-| Feature | Description |
-|---------|-------------|
-| **F008** WebLLM Chat | Local AI conversations (Qwen2.5-0.5B/1.5B) |
-| **F009** DASS-21 Context | Personalized responses based on assessment |
-| **F010** Chat History | Persistent sessions with smart memory |
-| **F011** Typing Indicators | Real-time AI thinking animations |
+
+| Feature                    | Description                                |
+| -------------------------- | ------------------------------------------ |
+| **F008** WebLLM Chat       | Local AI conversations (Qwen2.5-0.5B/1.5B) |
+| **F009** DASS-21 Context   | Personalized responses based on assessment |
+| **F010** Chat History      | Persistent sessions with smart memory      |
+| **F011** Typing Indicators | Real-time AI thinking animations           |
 
 ### 🎙️ **Phase 4: Voice Therapy**
-| Feature | Description |
-|---------|-------------|
-| **F012** Whisper STT | Speech-to-text using Transformers.js |
-| **F013** Piper TTS | Text-to-speech with 5 ASMR voices |
-| **F014** Voice Visualizer | Audio waveform animations |
-| **F015** Voice Selector | Choose from Amy, Aurora, Luna, Nova, Willow |
-| **F016** Voice Session | Push-to-talk therapy conversation flow |
+
+| Feature                   | Description                                 |
+| ------------------------- | ------------------------------------------- |
+| **F012** Whisper STT      | Speech-to-text using Transformers.js        |
+| **F013** Piper TTS        | Text-to-speech with 5 ASMR voices           |
+| **F014** Voice Visualizer | Audio waveform animations                   |
+| **F015** Voice Selector   | Choose from Amy, Aurora, Luna, Nova, Willow |
+| **F016** Voice Session    | Push-to-talk therapy conversation flow      |
 
 ### 📓 **Phase 5: Journaling**
-| Feature | Description |
-|---------|-------------|
-| **F017** Journal Editor | Rich text entry with auto-save |
-| **F018** AI Analysis | Mood, sentiment, stress detection |
-| **F019** Journal History | Searchable entries with filters |
-| **F020** Entry Details | Detailed analysis per journal entry |
+
+| Feature                  | Description                         |
+| ------------------------ | ----------------------------------- |
+| **F017** Journal Editor  | Rich text entry with auto-save      |
+| **F018** AI Analysis     | Mood, sentiment, stress detection   |
+| **F019** Journal History | Searchable entries with filters     |
+| **F020** Entry Details   | Detailed analysis per journal entry |
 
 ### 📊 **Phase 6: Dashboard & Analytics**
-| Feature | Description |
-|---------|-------------|
-| **F021** Stats Overview | Total entries, average mood, trends |
-| **F022** Mood Charts | Area chart for sentiment over time |
-| **F023** Emotion Distribution | Pie chart for emotion breakdown |
-| **F024** Stress Levels | Bar chart for stress patterns |
-| **F025** DASS-21 Progress | Assessment baseline display |
+
+| Feature                       | Description                         |
+| ----------------------------- | ----------------------------------- |
+| **F021** Stats Overview       | Total entries, average mood, trends |
+| **F022** Mood Charts          | Area chart for sentiment over time  |
+| **F023** Emotion Distribution | Pie chart for emotion breakdown     |
+| **F024** Stress Levels        | Bar chart for stress patterns       |
+| **F025** DASS-21 Progress     | Assessment baseline display         |
 
 ### 📄 **Phase 7: Reports & Export**
-| Feature | Description |
-|---------|-------------|
+
+| Feature              | Description                              |
+| -------------------- | ---------------------------------------- |
 | **F026** PDF Reports | Generate comprehensive mental health PDF |
-| **F027** Data Export | Export as JSON or CSV for backup |
+| **F027** Data Export | Export as JSON or CSV for backup         |
 
 ## 🏗️ Architecture
 
@@ -123,17 +130,17 @@ MindScribe/
 
 ## 🛠️ Tech Stack
 
-| Category | Technology |
-|----------|------------|
-| **Frontend** | React 18.3, TypeScript 5.0, Vite 5.4 |
-| **Styling** | Tailwind CSS, Shadcn/ui, Framer Motion |
-| **AI Chat** | WebLLM (Qwen2.5-0.5B-Instruct, Qwen2.5-1.5B) |
-| **Speech-to-Text** | Whisper Tiny EN (Transformers.js, q8) |
-| **Text-to-Speech** | Piper WASM + espeak-ng phonemizer |
-| **Storage** | LocalForage + Web Crypto API (AES-GCM) |
-| **Charts** | Recharts (Area, Bar, Pie, Line charts) |
-| **PDF Export** | jsPDF + jspdf-autotable |
-| **Deployment** | Vercel, Netlify, GitHub Pages |
+| Category           | Technology                                   |
+| ------------------ | -------------------------------------------- |
+| **Frontend**       | React 18.3, TypeScript 5.0, Vite 5.4         |
+| **Styling**        | Tailwind CSS, Shadcn/ui, Framer Motion       |
+| **AI Chat**        | WebLLM (Qwen2.5-0.5B-Instruct, Qwen2.5-1.5B) |
+| **Speech-to-Text** | Whisper Tiny EN (Transformers.js, q8)        |
+| **Text-to-Speech** | Piper WASM + espeak-ng phonemizer            |
+| **Storage**        | LocalForage + Web Crypto API (AES-GCM)       |
+| **Charts**         | Recharts (Area, Bar, Pie, Line charts)       |
+| **PDF Export**     | jsPDF + jspdf-autotable                      |
+| **Deployment**     | Vercel, Netlify, GitHub Pages                |
 
 ## 🚀 Quick Start
 
@@ -170,71 +177,78 @@ npm run preview
 
 ## 📱 Browser Compatibility
 
-| Browser | Support | WebGPU | Voice | Performance |
-|---------|---------|--------|-------|-------------|
-| **Chrome 113+** | ✅ Full | ✅ Yes | ✅ Yes | ⭐⭐⭐⭐⭐ |
-| **Edge 113+** | ✅ Full | ✅ Yes | ✅ Yes | ⭐⭐⭐⭐⭐ |
-| **Firefox 110+** | ✅ Full | ⚠️ CPU | ✅ Yes | ⭐⭐⭐⭐ |
-| **Safari 16.4+** | ✅ Full | ⚠️ CPU | ✅ Yes | ⭐⭐⭐ |
-| **Mobile Chrome** | ✅ Full | ✅ Yes | ✅ Yes | ⭐⭐⭐⭐ |
+| Browser           | Support | WebGPU | Voice  | Performance |
+| ----------------- | ------- | ------ | ------ | ----------- |
+| **Chrome 113+**   | ✅ Full | ✅ Yes | ✅ Yes | ⭐⭐⭐⭐⭐  |
+| **Edge 113+**     | ✅ Full | ✅ Yes | ✅ Yes | ⭐⭐⭐⭐⭐  |
+| **Firefox 110+**  | ✅ Full | ⚠️ CPU | ✅ Yes | ⭐⭐⭐⭐    |
+| **Safari 16.4+**  | ✅ Full | ⚠️ CPU | ✅ Yes | ⭐⭐⭐      |
+| **Mobile Chrome** | ✅ Full | ✅ Yes | ✅ Yes | ⭐⭐⭐⭐    |
 
 ## 🎯 How to Use
 
 ### 1. **Create Account & Login**
+
 - Register with username and password
 - Credentials are encrypted and stored locally
 - No email verification required
 
 ### 2. **Complete DASS-21 Assessment**
+
 - 21-question mental health screening
 - Measures Depression, Anxiety, and Stress
 - Results personalize your AI companion
 
 ### 3. **Chat with AI Therapist**
+
 - Open the Chat page from sidebar
 - Download and activate an AI model
 - Start conversations with personalized support
 
 ### 4. **Voice Therapy Sessions**
+
 - Navigate to Voice Therapy page
 - Select your preferred ASMR voice
 - Hold the microphone button to speak
 - AI responds with soothing voice
 
 ### 5. **Daily Journaling**
+
 - Write your thoughts and feelings
 - AI analyzes mood, sentiment, and emotions
 - Track patterns over time
 
 ### 6. **View Dashboard**
+
 - See mood trends and statistics
 - Emotion distribution charts
 - Stress level patterns
 - DASS-21 baseline comparison
 
 ### 7. **Export Reports**
+
 - Generate PDF mental health summary
 - Export data as JSON for backup
 - Export journal entries as CSV
 
 ## 🎙️ Voice Therapy Voices
 
-| Voice | Style | Best For |
-|-------|-------|----------|
-| **Amy** | Warm, nurturing | General support |
-| **Aurora** | Gentle, calming | Anxiety relief |
-| **Luna** | Soft, soothing | Sleep & relaxation |
-| **Nova** | Clear, reassuring | Guided exercises |
-| **Willow** | Whispery, ASMR | Deep relaxation |
+| Voice      | Style             | Best For           |
+| ---------- | ----------------- | ------------------ |
+| **Amy**    | Warm, nurturing   | General support    |
+| **Aurora** | Gentle, calming   | Anxiety relief     |
+| **Luna**   | Soft, soothing    | Sleep & relaxation |
+| **Nova**   | Clear, reassuring | Guided exercises   |
+| **Willow** | Whispery, ASMR    | Deep relaxation    |
 
 ## 🔧 Available AI Models
 
-| Model | Size | Speed | Quality | Memory |
-|-------|------|-------|---------|--------|
-| **Qwen2.5-0.5B** | 500MB | ⚡⚡⚡ | ⭐⭐⭐ | 2GB |
-| **Qwen2.5-1.5B** | 1.5GB | ⚡⚡ | ⭐⭐⭐⭐ | 4GB |
-| **Llama 3.2 1B** | 1.2GB | ⚡⚡⚡ | ⭐⭐⭐ | 3GB |
-| **Llama 3.2 3B** | 2.0GB | ⚡⚡ | ⭐⭐⭐⭐ | 6GB |
+| Model            | Size  | Speed  | Quality  | Memory |
+| ---------------- | ----- | ------ | -------- | ------ |
+| **Qwen2.5-0.5B** | 500MB | ⚡⚡⚡ | ⭐⭐⭐   | 2GB    |
+| **Qwen2.5-1.5B** | 1.5GB | ⚡⚡   | ⭐⭐⭐⭐ | 4GB    |
+| **Llama 3.2 1B** | 1.2GB | ⚡⚡⚡ | ⭐⭐⭐   | 3GB    |
+| **Llama 3.2 3B** | 2.0GB | ⚡⚡   | ⭐⭐⭐⭐ | 6GB    |
 
 ## 🔒 Privacy & Security
 
@@ -248,13 +262,13 @@ MindScribe is built with privacy as the core principle:
 
 ## 📊 DASS-21 Severity Levels
 
-| Score Range | Depression | Anxiety | Stress |
-|-------------|------------|---------|--------|
-| **Normal** | 0-9 | 0-7 | 0-14 |
-| **Mild** | 10-13 | 8-9 | 15-18 |
-| **Moderate** | 14-20 | 10-14 | 19-25 |
-| **Severe** | 21-27 | 15-19 | 26-33 |
-| **Extremely Severe** | 28+ | 20+ | 34+ |
+| Score Range          | Depression | Anxiety | Stress |
+| -------------------- | ---------- | ------- | ------ |
+| **Normal**           | 0-9        | 0-7     | 0-14   |
+| **Mild**             | 10-13      | 8-9     | 15-18  |
+| **Moderate**         | 14-20      | 10-14   | 19-25  |
+| **Severe**           | 21-27      | 15-19   | 26-33  |
+| **Extremely Severe** | 28+        | 20+     | 34+    |
 
 ## 🛠️ Development
 
@@ -283,21 +297,25 @@ src/
 ## 🐛 Troubleshooting
 
 ### **AI Model Won't Load**
+
 - Ensure WebGPU is enabled in browser
 - Try a smaller model (Qwen2.5-0.5B)
 - Check available memory (4GB+ recommended)
 
 ### **Voice Not Working**
+
 - Allow microphone permissions
 - Check browser audio settings
 - Voice models download on first use (~20MB)
 
 ### **Slow Performance**
+
 - Use Chrome/Edge for best WebGPU support
 - Close other memory-heavy tabs
 - Use smaller AI model
 
 ### **Data Not Saving**
+
 - Check localStorage availability
 - Clear browser cache and retry
 - Ensure cookies are enabled
@@ -337,7 +355,7 @@ MindScribe is an AI-powered wellness tool and **NOT a substitute for professiona
 
 <div align="center">
 
-**Built with ❤️ for Mental Wellness by [Dashrath](https://github.com/ErDashrath)**
+**Built with ❤️ for Mental Wellness by [Saniya](https://github.com/sanudii24/MindScribe)**
 
 [⭐ Star this repo](https://github.com/ErDashrath/EchoLearn) | [🐛 Report Bug](https://github.com/ErDashrath/EchoLearn/issues) | [💡 Request Feature](https://github.com/ErDashrath/EchoLearn/issues)
 
