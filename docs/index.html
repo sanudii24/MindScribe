@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MindScribe - Advanced AI-Powered Mental Health Assistant</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        header {
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        header p {
+            font-size: 1.1rem;
+            color: #ddd;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        section {
+            background: white;
+            margin: 2rem 0;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: #667eea;
+            margin-bottom: 1rem;
+            font-size: 1.8rem;
+        }
+
+        h3 {
+            color: #764ba2;
+            margin-top: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .feature-card {
+            background: linear-gradient(135deg, #667eea15 0%, #764ba215 100%);
+            padding: 1.5rem;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.2);
+        }
+
+        .feature-card h4 {
+            color: #667eea;
+            margin-bottom: 0.5rem;
+        }
+
+        .tech-stack {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .tech-badge {
+            background: #f0f0f0;
+            padding: 0.75rem 1rem;
+            border-radius: 5px;
+            text-align: center;
+            font-weight: 500;
+            color: #667eea;
+            border: 1px solid #667eea;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            margin-top: 1rem;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .cta-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        footer {
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .stat-card {
+            background: #f9f9f9;
+            padding: 1rem;
+            border-radius: 8px;
+            text-align: center;
+            border: 2px solid #667eea;
+        }
+
+        .stat-number {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #667eea;
+        }
+
+        .stat-label {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 1.8rem;
+            }
+
+            h2 {
+                font-size: 1.4rem;
+            }
+
+            .container {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>🧠 MindScribe</h1>
+        <p>Advanced AI-Powered Mental Health Assistant with Offline Capabilities</p>
+    </header>
+
+    <div class="container">
+        <!-- Overview Section -->
+        <section>
+            <h2>Welcome to MindScribe</h2>
+            <p>MindScribe is a cutting-edge, privacy-first mental health companion powered by advanced AI technology. Designed to provide personalized mental health support with complete offline capabilities, MindScribe ensures your data remains yours and yours alone.</p>
+            <p style="margin-top: 1rem;">Whether you're seeking daily emotional support, mental health assessments, or intelligent conversation with a compassionate AI, MindScribe is here to help you on your wellness journey.</p>
+        </section>
+
+        <!-- Key Features -->
+        <section>
+            <h2>✨ Key Features</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <h4>🔐 Privacy-First</h4>
+                    <p>Complete offline capability with zero data collection. Your conversations stay on your device.</p>
+                </div>
+                <div class="feature-card">
+                    <h4>🤖 Advanced AI</h4>
+                    <p>Powered by state-of-the-art LLMs with RAG memory architecture for contextual understanding.</p>
+                </div>
+                <div class="feature-card">
+                    <h4>🎙️ Voice Support</h4>
+                    <p>Natural voice interaction with high-quality TTS and speech recognition capabilities.</p>
+                </div>
+                <div class="feature-card">
+                    <h4>💾 Memory Intelligence</h4>
+                    <p>Semantic memory system that learns and adapts to your needs over time.</p>
+                </div>
+                <div class="feature-card">
+                    <h4>📱 Cross-Platform</h4>
+                    <p>Available on Web, Desktop (Windows, macOS, Linux), and mobile platforms.</p>
+                </div>
+                <div class="feature-card">
+                    <h4>⚡ High Performance</h4>
+                    <p>Optimized inference engine with native CPU support for instant responses.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Technology Stack -->
+        <section>
+            <h2>🛠️ Technology Stack</h2>
+            <h3>Frontend & UI</h3>
+            <div class="tech-stack">
+                <div class="tech-badge">React</div>
+                <div class="tech-badge">TypeScript</div>
+                <div class="tech-badge">Vite</div>
+                <div class="tech-badge">Tailwind CSS</div>
+            </div>
+
+            <h3>AI & ML</h3>
+            <div class="tech-stack">
+                <div class="tech-badge">WebLLM</div>
+                <div class="tech-badge">Transformers.js</div>
+                <div class="tech-badge">ONNX Runtime</div>
+                <div class="tech-badge">Whisper</div>
+            </div>
+
+            <h3>Voice & Audio</h3>
+            <div class="tech-stack">
+                <div class="tech-badge">Piper TTS</div>
+                <div class="tech-badge">Web Audio API</div>
+                <div class="tech-badge">WASM</div>
+            </div>
+
+            <h3>Desktop & Backend</h3>
+            <div class="tech-stack">
+                <div class="tech-badge">Tauri</div>
+                <div class="tech-badge">Rust</div>
+                <div class="tech-badge">Node.js</div>
+            </div>
+        </section>
+
+        <!-- Project Statistics -->
+        <section>
+            <h2>📊 Project Overview</h2>
+            <div class="stats">
+                <div class="stat-card">
+                    <div class="stat-number">282+</div>
+                    <div class="stat-label">Files</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">11</div>
+                    <div class="stat-label">Commits</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">100%</div>
+                    <div class="stat-label">Open Source</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">∞</div>
+                    <div class="stat-label">Potential</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Getting Started -->
+        <section>
+            <h2>🚀 Getting Started</h2>
+            <h3>Installation</h3>
+            <pre style="background: #f4f4f4; padding: 1rem; border-radius: 5px; overflow-x: auto;"><code>git clone https://github.com/sanudii24/MindScribe.git
+cd MindScribe
+npm install
+npm run dev</code></pre>
+
+            <h3>Building for Desktop</h3>
+            <pre style="background: #f4f4f4; padding: 1rem; border-radius: 5px; overflow-x: auto;"><code>npm run tauri dev
+npm run tauri build</code></pre>
+
+            <h3>Learn More</h3>
+            <p>For detailed documentation, architecture diagrams, and implementation guides, please visit our <a href="https://github.com/sanudii24/MindScribe" style="color: #667eea; text-decoration: none;">GitHub Repository</a>.</p>
+        </section>
+
+        <!-- Architecture Highlights -->
+        <section>
+            <h2>🏗️ Architecture Highlights</h2>
+            <h3>Core Components</h3>
+            <ul style="margin-left: 1.5rem; margin-top: 1rem;">
+                <li><strong>RAG Pipeline:</strong> Retrieval-Augmented Generation for intelligent context-aware responses</li>
+                <li><strong>Memory System:</strong> Semantic vector database for long-term conversation memory</li>
+                <li><strong>Inference Engine:</strong> Optimized LLM inference with CPU/GPU support</li>
+                <li><strong>Voice Pipeline:</strong> End-to-end speech recognition and synthesis</li>
+                <li><strong>Assessment Module:</strong> Structured mental health evaluations and tracking</li>
+            </ul>
+        </section>
+
+        <!-- Call to Action -->
+        <section style="text-align: center;">
+            <h2>Ready to Experience MindScribe?</h2>
+            <p>Join us in building the future of AI-powered mental health support.</p>
+            <a href="https://github.com/sanudii24/MindScribe" class="cta-button">View on GitHub</a>
+            <a href="https://github.com/sanudii24/MindScribe/stargazers" class="cta-button" style="background: linear-gradient(135deg, #764ba2 0%, #667eea 100%); margin-left: 1rem;">Star on GitHub</a>
+        </section>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 MindScribe. All rights reserved.</p>
+        <p style="margin-top: 1rem; font-size: 0.9rem;">Built with ❤️ for mental health and wellness</p>
+    </footer>
+</body>
+</html>
